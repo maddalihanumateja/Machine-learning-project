@@ -9,3 +9,6 @@ with open('SP_Constituants.csv', 'rb') as csvfile:
         Names.append(row[1]);
         Tickers.append(row[2]);
 
+TodaysPrices = [];
+for row in Tickers:
+    TodaysPrices.append(ystockquote.get_price(row));
