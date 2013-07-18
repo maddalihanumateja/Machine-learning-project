@@ -4,9 +4,10 @@ import sys
 
 Names = [];
 Tickers = [];
-with open('Top_8.csv', 'rb') as csvfile:
+with open('Russel_50.csv', 'rb') as csvfile:
     CSVReader = csv.reader(csvfile);
     for row in CSVReader:
+        print row
         Names.append(row[1]);
         Tickers.append(row[2]);
 
