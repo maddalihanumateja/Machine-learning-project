@@ -19,13 +19,14 @@ for row in Tickers:
         title += row.replace(" ", "").replace("/","");
         title += '.csv';
         print title
-        Historical=ystockquote.get_historical_prices(row.replace(" ", "").replace("/","."),"2013-07-13","2013-07-18")
+        Historical=ystockquote.get_historical_prices(row.replace(" ", "").replace("/","."),"2013-07-11","2013-07-18")
         with open(title, 'w') as csvfile:
             CSVWriter = csv.writer(csvfile);
             Historical.pop(0)
             CSVWriter.writerow(["Close Ratio","High Ratio","Low Ratio"]);
             for row2 in Historical:
                 r2write = [];
+                r2write.append(row2[0]);
                 r2write.append(float(row2[4])/float(row2[1]));
                 r2write.append(float(row2[3])/float(row2[1]));
                 r2write.append(float(row2[2])/float(row2[1]));
