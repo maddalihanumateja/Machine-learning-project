@@ -4,7 +4,7 @@ import sys
 
 Names = [];
 Tickers = [];
-with open('SP_Constituants.csv', 'rb') as csvfile:
+with open('Top_8.csv', 'rb') as csvfile:
     CSVReader = csv.reader(csvfile);
     for row in CSVReader:
         Names.append(row[1]);
@@ -19,12 +19,19 @@ for row in Tickers:
         title += row.replace(" ", "").replace("/","");
         title += '.csv';
         print title
-        Historical=ystockquote.get_historical_prices(row.replace(" ", "").replace("/","."),"2012-07-07","2013-07-14")
+        Historical=ystockquote.get_historical_prices(row.replace(" ", "").replace("/","."),"2013-07-13","2013-07-18")
         with open(title, 'w') as csvfile:
             CSVWriter = csv.writer(csvfile);
+            Historical.pop(0)
+            CSVWriter.writerow(["Close Ratio","High Ratio","Low Ratio"]);
             for row2 in Historical:
-                CSVWriter.writerow(row2);
+                r2write = [];
+                r2write.append(float(row2[4])/float(row2[1]));
+                r2write.append(float(row2[3])/float(row2[1]));
+                r2write.append(float(row2[2])/float(row2[1]));
+                CSVWriter.writerow(r2write);
     except:
-        print "Fail on "+row;
+        print "Fail on ",row," with error:", sys.exc_info()[0];
         faillog.append(row);
+        break;
         
